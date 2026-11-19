@@ -3,21 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice City Cover — GTA-style poster maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">VC</span>
+    <div>
+      <h1>Vice City Cover</h1>
+      <p>Turn your photos into a GTA-style multi-panel poster. Everything stays on your machine — no uploads.</p>
+    </div>
+  </div>
+  <div class="steps" aria-label="How it works">
+    <span><b>1</b> Load photos</span>
+    <span><b>2</b> Arrange panels</span>
+    <span><b>3</b> Export PNG</span>
+  </div>
+</header>
+<main class="layout">
+  <section class="controls" aria-label="Poster controls">
+    <h2>Your photos</h2>
+    <p class="hint">Three slots. One photo can fill every panel, or each panel can use its own.</p>
+    <div class="slot" id="slot1">
+      <span class="thumb" id="slotThumb1">Empty</span>
+      <div class="slot-body">
+        <strong id="slotName1">No photo</strong>
+        <div class="slot-actions">
+          <label class="btn small">Choose file <input id="photo1" type="file" accept="image/*"></label>
+          <button id="sample1" class="btn small ghost" type="button">Use sample</button>
+        </div>
+      </div>
+    </div>
+    <div class="slot" id="slot2">
+      <span class="thumb" id="slotThumb2">Empty</span>
+      <div class="slot-body">
+        <strong id="slotName2">No photo</strong>
+        <div class="slot-actions">
+          <label class="btn small">Choose file <input id="photo2" type="file" accept="image/*"></label>
+          <button id="sample2" class="btn small ghost" type="button">Use sample</button>
+        </div>
+      </div>
+    </div>
+    <div class="slot" id="slot3">
+      <span class="thumb" id="slotThumb3">Empty</span>
+      <div class="slot-body">
+        <strong id="slotName3">No photo</strong>
+        <div class="slot-actions">
+          <label class="btn small">Choose file <input id="photo3" type="file" accept="image/*"></label>
+          <button id="sample3" class="btn small ghost" type="button">Use sample</button>
+        </div>
+      </div>
+    </div>
+    <button id="fillAll" class="btn ghost" type="button">Fill all panels with one photo</button>
+
+    <h2>Layout</h2>
+    <div id="layoutPicker" class="chips" role="group" aria-label="Panel layout"></div>
+
+    <h2>Colour grade</h2>
+    <div id="gradePicker" class="chips" role="group" aria-label="Colour grade"></div>
+
+    <h2>Caption</h2>
+    <label class="field">Title
+      <input id="title" type="text" maxlength="24" value="SUNSET HEIST" autocomplete="off">
+    </label>
+    <label class="field">Tagline
+      <input id="subtitle" type="text" maxlength="24" value="VICE CITY" autocomplete="off">
+    </label>
+
+    <h2>Panel <span id="panelLabel">Panel 1 of 3</span></h2>
+    <p class="hint">Click a panel in the preview, or drag it to move the photo inside.</p>
+    <div id="panelDots" class="dots" role="group" aria-label="Choose panel">
+      <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+    </div>
+    <label class="field">Photo in this panel
+      <select id="panelPhoto"></select>
+    </label>
+    <label class="field">Zoom — <output id="zoomValue">100%</output>
+      <input id="zoom" type="range" min="100" max="250" value="100">
+    </label>
+    <label class="field">Move sideways — <output id="panXValue">0</output>
+      <input id="panX" type="range" min="-50" max="50" value="0">
+    </label>
+    <label class="field">Move up / down — <output id="panYValue">0</output>
+      <input id="panY" type="range" min="-50" max="50" value="0">
+    </label>
+
+    <h2>Export size</h2>
+    <div id="sizePicker" class="chips" role="group" aria-label="Export size"></div>
+    <button id="export" class="btn primary" type="button">Export PNG</button>
+    <p id="status" role="status">Load a photo or try a sample to begin.</p>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="preview-wrap" aria-label="Poster preview">
+    <canvas id="preview" width="1920" height="1080" aria-label="Poster preview"></canvas>
+    <p class="hint">Live preview — what you see is what the PNG will look like.</p>
+  </section>
 </main>
-<script type="module" src="./src/main.js"></script>
+<footer>
+  <p>Original poster maker. Not affiliated with Rockstar Games. Fonts: Anton &amp; Archivo Black (SIL Open Font License) bundled under app/fonts. Sample photos were made with an image model for make.fun and are free to use.</p>
+</footer>
+<script type="module" src="./src/editor.js"></script>
 </body>
 </html>
